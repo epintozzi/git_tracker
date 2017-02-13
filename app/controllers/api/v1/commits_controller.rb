@@ -1,11 +1,12 @@
 class Api::V1::CommitsController < ApplicationController
 
   def create
+    payload = JSON.parse(params["payload"])
     @commit = Commit.new
-    @commit.sha = params["head_commit"]["id"][0, 7]
-    @commit.message = params["head_commit"]["message"]
-    @commit.user = params["head_commit"]["author"]["username"]
-    @commit.timestamp = params["head_commit"]["timestamp"]
+    @commit.sha = payload["head_commit"]["id"][0, 7]
+    @commit.message = payload["head_commit"]["message"]
+    @commit.user = payload["head_commit"]["author"]["username"]
+    @commit.timestamp = payload["head_commit"]["timestamp"]
     if @commit.save
       render json: @commit, status: 200
     else
