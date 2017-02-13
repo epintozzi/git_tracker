@@ -4,7 +4,8 @@ describe "POST /api/v1/commits" do
   scenario "receive post request" do
 
     hash =
-      {
+      {"payload":
+        {
       "ref": "refs/heads/changes",
       "before": "9049f1265b7d61be4a8904a9a27120d2064dab3b",
       "after": "0d1a26e67d8f5eaf1f6ba5c57fc3c7d91ac0fd1c",
@@ -41,7 +42,8 @@ describe "POST /api/v1/commits" do
             "README.md"
           ]
         }
-      }
+      }.to_json
+    }
 
     post "/api/v1/commits", params: hash
 
